@@ -26,7 +26,7 @@ export async function GET(request: Request) {
     .maybeSingle();
 
   if (!barber?.is_active) {
-    return NextResponse.json({ error: "Tatuador no disponible" }, { status: 404 });
+    return NextResponse.json({ error: "Artista no disponible" }, { status: 404 });
   }
 
   const [{ data: bookings }, { data: blocks }] = await Promise.all([

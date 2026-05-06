@@ -44,7 +44,7 @@ export default function ShopPublicView({ shop, viewerRole }: Props) {
 
   return (
     <div className="min-h-screen bg-[hsl(var(--muted))]">
-      {/* Header de la estudio de tatuajes */}
+      {/* Header de el estudio */}
       <div className="relative overflow-hidden bg-[hsl(var(--foreground))] text-white">
         <div
           className="absolute inset-0 opacity-30"
@@ -114,10 +114,10 @@ export default function ShopPublicView({ shop, viewerRole }: Props) {
       </div>
 
       <div className="mx-auto max-w-3xl px-4 py-6 space-y-8">
-        {/* Tatuadors */}
+        {/* Artistas */}
         {activeBarbers.length > 0 && (
           <section>
-            <h2 className="text-lg font-semibold mb-4">Nuestros tatuadors</h2>
+            <h2 className="text-lg font-semibold mb-4">Nuestros artistas</h2>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
               {activeBarbers.map((barber) => (
                 <button
@@ -199,7 +199,7 @@ export default function ShopPublicView({ shop, viewerRole }: Props) {
             {activeServices.length === 0 && (
               <Card className="border-none shadow-none">
                 <CardContent className="p-4 text-sm text-muted-foreground">
-                  Esta estudio de tatuajes aún no tiene servicios activos.
+                  Esta estudio aún no tiene servicios activos.
                 </CardContent>
               </Card>
             )}
@@ -232,7 +232,7 @@ export default function ShopPublicView({ shop, viewerRole }: Props) {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Ubicación de la estudio de tatuajes"
+                title="Ubicación de el estudio"
               />
             </div>
             {shop.address && (
@@ -254,13 +254,13 @@ export default function ShopPublicView({ shop, viewerRole }: Props) {
                   : `/${shop.slug}/reservar`
               }
             >
-              {selectedBarber ? "Reservar con este tatuador" : "Reservar cita"}
+              {selectedBarber ? "Reservar con este artista" : "Reservar cita"}
             </Link>
           </Button>
 
           {viewerRole && viewerRole !== "client" && (
             <p className="mt-3 rounded-lg border bg-background p-3 text-center text-xs text-muted-foreground">
-              Estás viendo esta página como {viewerRole === "barber" ? "tatuador" : "estudio de tatuajes"}.
+              Estás viendo esta página como {viewerRole === "barber" ? "artista" : "estudio"}.
               Para reservar, usa una cuenta cliente.
             </p>
           )}

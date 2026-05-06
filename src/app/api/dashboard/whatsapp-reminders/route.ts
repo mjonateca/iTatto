@@ -55,7 +55,7 @@ export async function POST(request: Request) {
     clientName: client?.name || "Cliente",
     shopName: (context.shop as { name: string }).name,
     serviceName: service?.name || "Servicio",
-    barberName: barber?.display_name || "Tu tatuador",
+    barberName: barber?.display_name || "Tu artista",
     date: booking.date as string,
     startTime: booking.start_time as string,
   });

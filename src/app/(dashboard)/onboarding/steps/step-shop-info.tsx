@@ -126,7 +126,7 @@ export default function StepShopInfo({ data, onUpdate, onNext }: Props) {
             <Store className="h-5 w-5 text-primary" />
           </div>
           <div>
-            <CardTitle>Tu estudio de tatuajes</CardTitle>
+            <CardTitle>Tu estudio</CardTitle>
             <CardDescription>Información básica de tu negocio</CardDescription>
           </div>
         </div>
@@ -135,7 +135,7 @@ export default function StepShopInfo({ data, onUpdate, onNext }: Props) {
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           <div className="space-y-2">
-            <Label htmlFor="shopName">Nombre de la estudio de tatuajes *</Label>
+            <Label htmlFor="shopName">Nombre de el estudio *</Label>
             <Input
               id="shopName"
               placeholder="Ej: Barber King Santiago"

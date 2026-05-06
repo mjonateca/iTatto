@@ -17,7 +17,7 @@ const shopNavItems: NavItem[] = [
   { tab: "summary", label: "Resumen", icon: LayoutDashboard },
   { tab: "bookings", label: "Reservas", icon: Calendar },
   { tab: "services", label: "Servicios", icon: Scissors },
-  { tab: "barbers", label: "Tatuadors", icon: UserRound },
+  { tab: "barbers", label: "Artistas", icon: UserRound },
   { tab: "clients", label: "Clientes", icon: Users },
   { tab: "schedule", label: "Horarios", icon: Clock },
   { tab: "notifications", label: "Avisos", icon: Mail },

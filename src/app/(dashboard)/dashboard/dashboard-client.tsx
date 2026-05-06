@@ -441,10 +441,10 @@ export default function DashboardClient({
       body: JSON.stringify({ shop_id: shopState.id, display_name: form.get("display_name"), specialty: form.get("specialty"), bio: form.get("bio"), service_ids: serviceIds }),
     });
     const payload = await response.json().catch(() => ({}));
-    if (!response.ok) { toast({ variant: "destructive", title: "No se creó el tatuador", description: payload.error }); return; }
+    if (!response.ok) { toast({ variant: "destructive", title: "No se creó el artista", description: payload.error }); return; }
     setBarbers((prev) => [...prev, { ...payload, barber_services: serviceIds.map((id) => ({ service_id: id })) }]);
     event.currentTarget.reset();
-    toast({ title: "Tatuador creado" });
+    toast({ title: "Artista creado" });
   }
 
   async function toggleBarber(barber: BarberWithServices) {
@@ -661,7 +661,7 @@ export default function DashboardClient({
     }
 
     if (!barberId || !date || !startTime || !clientName) {
-      toast({ variant: "destructive", title: "Faltan datos", description: "Completa cliente, tatuador, servicio, fecha y hora." });
+      toast({ variant: "destructive", title: "Faltan datos", description: "Completa cliente, artista, servicio, fecha y hora." });
       return;
     }
 
@@ -717,7 +717,7 @@ export default function DashboardClient({
       notes: "",
     });
     setShowManualBookingForm(false);
-    toast({ title: "Reserva manual creada" });
+    toast({ title: "Reserva manual creado" });
   }
 
   async function openBillingCheckout() {
@@ -812,7 +812,7 @@ export default function DashboardClient({
 
           <div className="grid gap-4 lg:grid-cols-2">
             <BarChart title="Servicios más solicitados" icon={Scissors} items={analytics.topServices.slice(0, 5).map((item) => ({ label: item.name, value: item.count, sub: formatCurrency(item.revenue, shopState.currency) }))} emptyText="Sin datos todavía." />
-            <BarChart title="Tatuadors con más reservas" icon={UserRound} items={analytics.topBarbers.slice(0, 5).map((item) => ({ label: item.name, value: item.count, sub: formatCurrency(item.revenue, shopState.currency) }))} emptyText="Sin datos todavía." />
+            <BarChart title="Artistas con más reservas" icon={UserRound} items={analytics.topBarbers.slice(0, 5).map((item) => ({ label: item.name, value: item.count, sub: formatCurrency(item.revenue, shopState.currency) }))} emptyText="Sin datos todavía." />
             <BarChart title="Franjas con más demanda" icon={Clock} items={analytics.peakHours.slice(0, 5).map((item) => ({ label: item.slot, value: item.count, sub: `${item.count} reservas` }))} emptyText="Sin datos todavía." />
             <BarChart title="Días con más demanda" icon={CalendarDays} items={analytics.peakWeekdays.slice(0, 7).map((item) => ({ label: item.day, value: item.count, sub: `${item.count} reservas` }))} emptyText="Sin datos todavía." />
           </div>
@@ -918,7 +918,7 @@ export default function DashboardClient({
                       />
                     </div>
                     <div className="space-y-1">
-                      <Label htmlFor="manual-barber">Tatuador</Label>
+                      <Label htmlFor="manual-barber">Artista</Label>
                       <select
                         id="manual-barber"
                         className="flex h-11 w-full rounded-xl border border-input bg-background px-3 py-2 text-sm"
@@ -926,7 +926,7 @@ export default function DashboardClient({
                         onChange={(event) => updateManualBookingField("barber_id", event.target.value)}
                         required
                       >
-                        <option value="">Selecciona un tatuador</option>
+                        <option value="">Selecciona un artista</option>
                         {activeBarbers.map((barber) => (
                           <option key={barber.id} value={barber.id}>{barber.display_name}</option>
                         ))}
@@ -1100,7 +1100,7 @@ export default function DashboardClient({
       {currentTab === "barbers" && (
         <div className="grid gap-4 lg:grid-cols-[1fr_360px]">
           <Card className="shadow-none">
-            <CardHeader><CardTitle>Tatuadors ({barbers.length})</CardTitle></CardHeader>
+            <CardHeader><CardTitle>Artistas ({barbers.length})</CardTitle></CardHeader>
             <CardContent className="space-y-3">
               {barbers.map((barber) => {
                 const barberStats = analytics.topBarbers.find((b) => b.name === barber.display_name);
@@ -1319,7 +1319,7 @@ export default function DashboardClient({
                       <p className="text-xs text-muted-foreground">
                         {reminder.date} · {formatTime(reminder.start_time.slice(0, 5))} · {reminder.service_name}
                       </p>
-                      <p className="text-xs text-muted-foreground">Tatuador: {reminder.barber_name}</p>
+                      <p className="text-xs text-muted-foreground">Artista: {reminder.barber_name}</p>
                     </div>
                     <Button
                       size="sm"
@@ -1387,7 +1387,7 @@ export default function DashboardClient({
           </Card>
 
           <Card className="shadow-none">
-            <CardHeader><CardTitle>Información de la estudio de tatuajes</CardTitle></CardHeader>
+            <CardHeader><CardTitle>Información de el estudio</CardTitle></CardHeader>
             <CardContent>
               <form onSubmit={saveShopInfo} className="space-y-4">
                 <div className="space-y-1">
@@ -1532,7 +1532,7 @@ function CreateServiceForm({ onSubmit }: { onSubmit: (e: FormEvent<HTMLFormEleme
 function CreateBarberForm({ services, onSubmit }: { services: Service[]; onSubmit: (e: FormEvent<HTMLFormElement>) => void }) {
   return (
     <Card className="shadow-none">
-      <CardHeader><CardTitle className="text-base">Nuevo tatuador</CardTitle></CardHeader>
+      <CardHeader><CardTitle className="text-base">Nuevo artista</CardTitle></CardHeader>
       <CardContent>
         <form onSubmit={onSubmit} className="space-y-3">
           <Field name="display_name" label="Nombre público" required placeholder="Ej: Miguel" />
@@ -1554,7 +1554,7 @@ function CreateBarberForm({ services, onSubmit }: { services: Service[]; onSubmi
               </div>
             </div>
           )}
-          <Button type="submit" className="w-full">Crear tatuador</Button>
+          <Button type="submit" className="w-full">Crear artista</Button>
         </form>
       </CardContent>
     </Card>

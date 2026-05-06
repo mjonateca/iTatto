@@ -88,7 +88,7 @@ export async function POST(request: Request) {
   }
 
   if (!normalizeReminderChannels((context.shop as { reminder_channels?: unknown }).reminder_channels).includes("email")) {
-    return NextResponse.json({ error: "El correo no está activado para esta estudio de tatuajes" }, { status: 400 });
+    return NextResponse.json({ error: "El correo no está activado para esta estudio" }, { status: 400 });
   }
 
   if (!process.env.RESEND_API_KEY) {
@@ -99,7 +99,7 @@ export async function POST(request: Request) {
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    const barberName = (booking.barbers as unknown as { display_name: string } | null)?.display_name || "Tu tatuador";
+    const barberName = (booking.barbers as unknown as { display_name: string } | null)?.display_name || "Tu artista";
     const serviceName = (booking.services as unknown as { name: string } | null)?.name || "Servicio";
 
     const html = buildReminderEmailHtml({

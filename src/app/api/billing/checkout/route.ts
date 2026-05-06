@@ -20,7 +20,7 @@ export async function POST() {
     .single();
 
   if (shopQuery.error || !shopQuery.data) {
-    return NextResponse.json({ error: "Estudio de tatuajes no encontrada" }, { status: 404 });
+    return NextResponse.json({ error: "Estudio no encontrada" }, { status: 404 });
   }
 
   const shop = shopQuery.data;

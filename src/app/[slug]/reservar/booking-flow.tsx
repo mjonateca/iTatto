@@ -263,7 +263,7 @@ export default function BookingFlow({ shop, client, preselectedBarberId }: Props
           <div className="flex-1">
             <p className="text-sm font-semibold">{shop.name}</p>
             <p className="text-xs text-white/70">
-              {step === "barber" && "Elige tu tatuador"}
+              {step === "barber" && "Elige tu artista"}
               {step === "service" && "Elige el servicio"}
               {step === "datetime" && "Elige fecha y hora"}
               {step === "confirm" && "Confirmar reserva"}
@@ -303,7 +303,7 @@ export default function BookingFlow({ shop, client, preselectedBarberId }: Props
             <h2 className="text-lg font-semibold">¿Con quién quieres tu cita?</h2>
             {activeBarbers.length === 0 ? (
               <div className="rounded-lg border bg-background p-4 text-sm text-muted-foreground">
-                Esta estudio de tatuajes aún no tiene tatuadors activos para recibir reservas.
+                Esta estudio aún no tiene artistas activos para recibir reservas.
               </div>
             ) : (
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -351,7 +351,7 @@ export default function BookingFlow({ shop, client, preselectedBarberId }: Props
             <div className="space-y-2">
               {activeServices.length === 0 && (
                 <p className="rounded-lg border bg-background p-4 text-sm text-muted-foreground">
-                  Este tatuador aún no tiene servicios asignados.
+                  Este artista aún no tiene servicios asignados.
                 </p>
               )}
               {activeServices.map((service) => (
@@ -424,7 +424,7 @@ export default function BookingFlow({ shop, client, preselectedBarberId }: Props
               <div>
                 <h3 className="mb-3 font-medium">Horarios disponibles</h3>
                 {selectedDayConfig?.closed ? (
-                  <p className="rounded-lg border bg-background p-4 text-sm text-muted-foreground">La estudio de tatuajes está cerrada ese día.</p>
+                  <p className="rounded-lg border bg-background p-4 text-sm text-muted-foreground">La estudio está cerrada ese día.</p>
                 ) : loadingSlots ? (
                   <div className="flex justify-center py-8">
                     <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
@@ -491,7 +491,7 @@ export default function BookingFlow({ shop, client, preselectedBarberId }: Props
                   </div>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Tatuador</span>
+                  <span className="text-muted-foreground">Artista</span>
                   <span className="font-medium">{selectedBarber?.display_name}</span>
                 </div>
                 <div className="flex justify-between text-sm">
@@ -519,8 +519,8 @@ export default function BookingFlow({ shop, client, preselectedBarberId }: Props
                 {shop.payments_enabled && (
                   <div className="rounded-lg bg-muted p-3 text-sm text-muted-foreground">
                     {shop.online_payment_mode === "required"
-                      ? "Esta estudio de tatuajes tiene pago online obligatorio. Después de reservar podrás completar el pago desde tu panel."
-                      : "Esta estudio de tatuajes admite pago online. Después de reservar podrás pagar desde tu panel si quieres dejarla abonada."}
+                      ? "Esta estudio tiene pago online obligatorio. Después de reservar podrás completar el pago desde tu panel."
+                      : "Esta estudio admite pago online. Después de reservar podrás pagar desde tu panel si quieres dejarla abonada."}
                   </div>
                 )}
               </CardContent>

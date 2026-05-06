@@ -284,7 +284,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
         scheduled_for: event.scheduled_for,
         client_name: booking.clients?.name || booking.client_name || "Cliente",
         service_name: booking.services?.name || "Servicio",
-        barber_name: booking.barbers?.display_name || "Tu tatuador",
+        barber_name: booking.barbers?.display_name || "Tu artista",
         date: booking.date || "",
         start_time: booking.start_time,
       };
@@ -308,7 +308,7 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
         client_phone: booking.client_phone || booking.clients?.phone || null,
         client_whatsapp: booking.clients?.whatsapp || null,
         service_name: booking.services?.name || "Servicio",
-        barber_name: booking.barbers?.display_name || "Tu tatuador",
+        barber_name: booking.barbers?.display_name || "Tu artista",
         date: booking.date || "",
         start_time: booking.start_time,
       };

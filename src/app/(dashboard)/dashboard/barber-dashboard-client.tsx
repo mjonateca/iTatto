@@ -114,10 +114,10 @@ export default function BarberDashboardClient({
   return (
     <div className="max-w-6xl p-4 md:p-8">
       <div className="mb-7">
-        <p className="text-sm text-muted-foreground">Vista tatuador</p>
+        <p className="text-sm text-muted-foreground">Vista artista</p>
         <h1 className="text-2xl font-bold">{profile.display_name}</h1>
         <p className="text-muted-foreground">
-          {profile.shops?.name ? `Trabajando en ${profile.shops.name}` : "Tatuador independiente o pendiente de vinculación"}
+          {profile.shops?.name ? `Trabajando en ${profile.shops.name}` : "Artista independiente o pendiente de vinculación"}
         </p>
       </div>
 
@@ -246,7 +246,7 @@ export default function BarberDashboardClient({
               </div>
               {profile.shops?.slug && (
                 <Button asChild variant="outline" className="w-full">
-                  <Link href={`/${profile.shops.slug}`}>Ver mi estudio de tatuajes</Link>
+                  <Link href={`/${profile.shops.slug}`}>Ver mi estudio</Link>
                 </Button>
               )}
               <Button type="submit" className="w-full" disabled={saving}>
@@ -278,7 +278,7 @@ function BookingRow({ booking }: { booking: BarberBooking }) {
       </div>
       {booking.shops?.slug && (
         <Link href={`/${booking.shops.slug}`} className="mt-2 inline-block text-xs text-primary hover:underline">
-          Ver estudio de tatuajes
+          Ver estudio
         </Link>
       )}
     </div>

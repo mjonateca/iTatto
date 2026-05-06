@@ -73,7 +73,7 @@ export default function StepServices({ data, onUpdate, onNext, onBack }: Props) 
           </div>
           <div>
             <CardTitle>Servicios</CardTitle>
-            <CardDescription>¿Qué ofrece tu estudio de tatuajes?</CardDescription>
+            <CardDescription>¿Qué ofrece tu estudio?</CardDescription>
           </div>
         </div>
       </CardHeader>

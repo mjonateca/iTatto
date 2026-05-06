@@ -42,7 +42,7 @@ function buildReviewEmailHtml({
             Nos encantaría saber tu opinión.
           </p>
           <table width="100%" style="background:#f9fafb;border-radius:8px;padding:16px" cellpadding="0" cellspacing="0">
-            <tr><td style="padding:6px 0"><span style="color:#6b7280;font-size:13px">Tatuador</span><br><strong style="color:#111827;font-size:15px">${barberName}</strong></td></tr>
+            <tr><td style="padding:6px 0"><span style="color:#6b7280;font-size:13px">Artista</span><br><strong style="color:#111827;font-size:15px">${barberName}</strong></td></tr>
             <tr><td style="padding:6px 0"><span style="color:#6b7280;font-size:13px">Servicio</span><br><strong style="color:#111827;font-size:15px">${serviceName}</strong></td></tr>
             <tr><td style="padding:6px 0"><span style="color:#6b7280;font-size:13px">Fecha</span><br><strong style="color:#111827;font-size:15px">${formattedDate}</strong></td></tr>
           </table>
@@ -136,10 +136,10 @@ export async function GET(request: Request) {
 
           const clientName = clientData.name || "Cliente";
           const barberName =
-            (booking.barbers as unknown as { display_name: string } | null)?.display_name || "Tu tatuador";
+            (booking.barbers as unknown as { display_name: string } | null)?.display_name || "Tu artista";
           const serviceName = (booking.services as unknown as { name: string } | null)?.name || "Servicio";
           const shopObj = booking.shops as unknown as { name: string; slug: string } | null;
-          const shopName = shopObj?.name || "La estudio de tatuajes";
+          const shopName = shopObj?.name || "La estudio";
           const shopSlug = shopObj?.slug || "";
 
           const html = buildReviewEmailHtml({

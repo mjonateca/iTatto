@@ -57,7 +57,7 @@ export async function POST(request: Request) {
   }
 
   if (isManual && !["shop_owner", "barber"].includes(account.role)) {
-    return NextResponse.json({ error: "Solo la estudio de tatuajes o un tatuador pueden crear reservas manuales" }, { status: 403 });
+    return NextResponse.json({ error: "Solo el estudio o un artista pueden crear reservas manuales" }, { status: 403 });
   }
 
   const client = account.client;
@@ -82,22 +82,22 @@ export async function POST(request: Request) {
   ]);
 
   if (!shop?.is_active) {
-    return NextResponse.json({ error: "Estudio de tatuajes no disponible" }, { status: 404 });
+    return NextResponse.json({ error: "Estudio no disponible" }, { status: 404 });
   }
 
   if (!isSubscriptionAccessible(subscription?.status, subscription?.current_period_end)) {
     return NextResponse.json(
-      { error: "La estudio de tatuajes tiene la suscripción vencida y no puede recibir nuevas reservas." },
+      { error: "La estudio tiene la suscripción vencida y no puede recibir nuevas reservas." },
       { status: 409 }
     );
   }
 
   if (!barber?.is_active || barber.shop_id !== parsed.data.shop_id) {
-    return NextResponse.json({ error: "Tatuador no disponible en esta estudio de tatuajes" }, { status: 409 });
+    return NextResponse.json({ error: "Artista no disponible en esta estudio" }, { status: 409 });
   }
 
   if (!service?.is_active || service.is_visible === false || service.shop_id !== parsed.data.shop_id) {
-    return NextResponse.json({ error: "Servicio no disponible en esta estudio de tatuajes" }, { status: 409 });
+    return NextResponse.json({ error: "Servicio no disponible en esta estudio" }, { status: 409 });
   }
 
   if (isManual) {
@@ -124,7 +124,7 @@ export async function POST(request: Request) {
   const hasExplicitAssignments = Boolean(assignedServices?.length);
   const compatible = !hasExplicitAssignments || assignedServices?.some((item) => item.service_id === parsed.data.service_id);
   if (!compatible) {
-    return NextResponse.json({ error: "El tatuador seleccionado no ofrece ese servicio" }, { status: 409 });
+    return NextResponse.json({ error: "El artista seleccionado no ofrece ese servicio" }, { status: 409 });
   }
 
   const normalizedEndTime = addMinutesToTime(parsed.data.start_time, Number(service.duration_min || 0));
@@ -132,7 +132,7 @@ export async function POST(request: Request) {
   const openingHours = (shop.opening_hours || {}) as OpeningHoursValue;
   const daySchedule = openingHours[weekdayKey(parsed.data.date)];
   if (daySchedule?.closed) {
-    return NextResponse.json({ error: "La estudio de tatuajes está cerrada ese día" }, { status: 409 });
+    return NextResponse.json({ error: "La estudio está cerrada ese día" }, { status: 409 });
   }
 
   if (
@@ -140,7 +140,7 @@ export async function POST(request: Request) {
     (timeToMinutes(parsed.data.start_time.slice(0, 5)) < timeToMinutes(daySchedule.open) ||
       timeToMinutes(normalizedEndTime.slice(0, 5)) > timeToMinutes(daySchedule.close))
   ) {
-    return NextResponse.json({ error: "La hora elegida está fuera del horario de la estudio de tatuajes" }, { status: 409 });
+    return NextResponse.json({ error: "La hora elegida está fuera del horario de el estudio" }, { status: 409 });
   }
 
   const { data: conflict } = await admin

@@ -73,7 +73,7 @@ export async function GET(request: Request) {
     }
 
     if (!normalizeReminderChannels(booking.shops?.reminder_channels).includes("email")) {
-      await admin.from("notification_events").update({ status: "skipped", error: "El correo está desactivado para esta estudio de tatuajes" }).eq("id", event.id);
+      await admin.from("notification_events").update({ status: "skipped", error: "El correo está desactivado para esta estudio" }).eq("id", event.id);
       skipped += 1;
       continue;
     }
@@ -86,7 +86,7 @@ export async function GET(request: Request) {
 
     const client = booking.clients;
     const shop = booking.shops;
-    const barberName = booking.barbers?.display_name || "Tu tatuador";
+    const barberName = booking.barbers?.display_name || "Tu artista";
     const serviceName = booking.services?.name || "Servicio";
     const clientName = client?.name || "Cliente";
 
@@ -107,7 +107,7 @@ export async function GET(request: Request) {
 
     const html = buildReminderEmailHtml({
       clientName,
-      shopName: shop?.name || "Tu estudio de tatuajes",
+      shopName: shop?.name || "Tu estudio",
       barberName,
       serviceName,
       date: booking.date,

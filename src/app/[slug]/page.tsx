@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     .eq("business_type", APP_BUSINESS_TYPE)
     .single();
 
-  if (!shop) return { title: "Estudio de tatuajes no encontrada" };
+  if (!shop) return { title: "Estudio no encontrada" };
   return {
     title: shop.name,
     description: `Reserva tu cita en ${shop.name}${shop.address ? ` · ${shop.address}` : ""}`,

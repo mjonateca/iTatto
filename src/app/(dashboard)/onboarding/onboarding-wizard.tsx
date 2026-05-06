@@ -21,15 +21,15 @@ export interface OnboardingData {
   description: string;
   // Paso 2
   services: Array<{ name: string; duration_min: number; price: number }>;
-  // Paso 3 — tatuador principal (el dueño)
+  // Paso 3 — artista principal (el dueño)
   barberName: string;
   barberBio: string;
 }
 
 const STEPS = [
-  { label: "Tu estudio de tatuajes", description: "Información básica" },
+  { label: "Tu estudio", description: "Información básica" },
   { label: "Servicios",   description: "Qué ofreces" },
-  { label: "Tu perfil",  description: "Perfil de tatuador" },
+  { label: "Tu perfil",  description: "Perfil de artista" },
 ];
 
 export default function OnboardingWizard({ userId }: { userId: string }) {

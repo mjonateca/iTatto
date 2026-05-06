@@ -1,7 +1,7 @@
 {
   "name": "iTatto",
   "short_name": "iTatto",
-  "description": "Reserva citas en las mejores estudios de tatuajes",
+  "description": "Reserva citas en las mejores estudios",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

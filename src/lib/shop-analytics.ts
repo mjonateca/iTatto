@@ -70,7 +70,7 @@ export function buildShopAnalytics(bookings: BookingAnalyticsRow[]) {
     service.revenue += Number(booking.services?.price || 0);
     servicesMap.set(serviceName, service);
 
-    const barberName = booking.barbers?.display_name || "Tatuador";
+    const barberName = booking.barbers?.display_name || "Artista";
     const barber = barbersMap.get(barberName) || { name: barberName, count: 0, revenue: 0, completed: 0 };
     barber.count += 1;
     barber.revenue += Number(booking.services?.price || 0);

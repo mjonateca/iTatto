@@ -61,7 +61,7 @@ export async function requireOwnedActiveShop(shopId?: string | null) {
       ...context,
       subscription,
       response: NextResponse.json(
-        { error: "Tu suscripción no está activa. Actualiza tu plan para seguir gestionando la estudio de tatuajes." },
+        { error: "Tu suscripción no está activa. Actualiza tu plan para seguir gestionando el estudio." },
         { status: 402 }
       ),
     };

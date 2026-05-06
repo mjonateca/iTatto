@@ -199,8 +199,8 @@ export default function ClientDashboardClient({
 
       <div className="mb-6 grid gap-4 md:grid-cols-3">
         <Metric title="Reservas" value={bookings.length} />
-        <Metric title="Estudios de tatuajes favoritas" value={shopFavorites.size} />
-        <Metric title="Tatuadors favoritos" value={barberFavorites.size} />
+        <Metric title="Estudios favoritos" value={shopFavorites.size} />
+        <Metric title="Artistas favoritos" value={barberFavorites.size} />
       </div>
 
       <div className="mb-6 flex gap-2 overflow-x-auto pb-2">
@@ -221,11 +221,11 @@ export default function ClientDashboardClient({
       {currentTab === "summary" && (
         <Card className="shadow-none">
           <CardHeader>
-            <CardTitle>Estudios de tatuajes cerca de tu zona</CardTitle>
+            <CardTitle>Estudios cerca de tu zona</CardTitle>
           </CardHeader>
           <CardContent className="grid gap-4 md:grid-cols-2">
             {shops.length === 0 ? (
-              <p className="text-sm text-muted-foreground">No hay estudios de tatuajes activas en tu ciudad.</p>
+              <p className="text-sm text-muted-foreground">No hay estudios activos en tu ciudad.</p>
             ) : (
               shops.map((shop) => (
                 <div key={shop.id} className="rounded-lg border p-4">
@@ -249,7 +249,7 @@ export default function ClientDashboardClient({
                       <Link href={`/${shop.slug}/reservar`}>Reservar</Link>
                     </Button>
                     <Button asChild size="sm" variant="outline">
-                      <Link href={`/${shop.slug}`}>Ver estudio de tatuajes</Link>
+                      <Link href={`/${shop.slug}`}>Ver estudio</Link>
                     </Button>
                   </div>
                 </div>
@@ -270,7 +270,7 @@ export default function ClientDashboardClient({
             ) : (
               bookings.map((booking) => (
                 <div key={booking.id} className="rounded-lg border p-4">
-                  <p className="font-medium">{booking.shops?.name || "Estudio de tatuajes"}</p>
+                  <p className="font-medium">{booking.shops?.name || "Estudio"}</p>
                   <p className="text-sm text-muted-foreground">
                     <CalendarDays className="mr-1 inline h-3.5 w-3.5" />
                     {booking.date} · {formatTime(booking.start_time.slice(0, 5))}
@@ -287,7 +287,7 @@ export default function ClientDashboardClient({
                   {booking.shops?.slug && (
                     <div className="mt-3 flex flex-wrap gap-2">
                       <Button asChild size="sm" variant="outline">
-                        <Link href={`/${booking.shops.slug}`}>Ver estudio de tatuajes</Link>
+                        <Link href={`/${booking.shops.slug}`}>Ver estudio</Link>
                       </Button>
                       <Button asChild size="sm">
                         <Link href={`/${booking.shops.slug}/reservar?barber=${booking.barber_id}`}>Reservar otra</Link>
@@ -319,7 +319,7 @@ export default function ClientDashboardClient({
 
                   {booking.status === "completed" && !reviewedBookingIds.has(booking.id) && (
                     <form onSubmit={(event) => submitReview(event, booking)} className="mt-3 space-y-2">
-                      <Label>Evaluar tatuador</Label>
+                      <Label>Evaluar artista</Label>
                       <select name="rating" className="h-10 w-full rounded-md border bg-background px-3 text-sm" defaultValue="5">
                         {[5, 4, 3, 2, 1].map((rating) => (
                           <option key={rating} value={rating}>
@@ -349,11 +349,11 @@ export default function ClientDashboardClient({
         <div className="grid gap-5 lg:grid-cols-2">
           <Card className="shadow-none">
             <CardHeader>
-              <CardTitle>Estudios de tatuajes favoritas</CardTitle>
+              <CardTitle>Estudios favoritos</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               {favoriteShops.length === 0 ? (
-                <p className="text-sm text-muted-foreground">Todavía no has marcado estudios de tatuajes favoritas.</p>
+                <p className="text-sm text-muted-foreground">Todavía no has marcado estudios favoritos.</p>
               ) : (
                 favoriteShops.map((shop) => (
                   <div key={shop.id} className="rounded-lg border p-4">
@@ -368,7 +368,7 @@ export default function ClientDashboardClient({
                     </div>
                     <div className="mt-3 flex gap-2">
                       <Button asChild size="sm" variant="outline">
-                        <Link href={`/${shop.slug}`}>Ver estudio de tatuajes</Link>
+                        <Link href={`/${shop.slug}`}>Ver estudio</Link>
                       </Button>
                       <Button asChild size="sm">
                         <Link href={`/${shop.slug}/reservar`}>Reservar</Link>
@@ -382,11 +382,11 @@ export default function ClientDashboardClient({
 
           <Card className="shadow-none">
             <CardHeader>
-              <CardTitle>Tatuadors favoritos</CardTitle>
+              <CardTitle>Artistas favoritos</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               {favoriteBarbers.length === 0 ? (
-                <p className="text-sm text-muted-foreground">Todavía no has marcado tatuadors favoritos.</p>
+                <p className="text-sm text-muted-foreground">Todavía no has marcado artistas favoritos.</p>
               ) : (
                 favoriteBarbers.map((barber) => (
                   <div key={barber.id} className="rounded-lg border p-4">

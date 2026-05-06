@@ -10,8 +10,8 @@ import type { AccountRole } from "@/types/database";
 
 const ROLE_LABELS: Record<AccountRole, string> = {
   client: "cliente",
-  barber: "tatuador",
-  shop_owner: "estudio de tatuajes",
+  barber: "artista",
+  shop_owner: "estudio",
 };
 
 export default function BookingRoleNotice({ role, shopSlug }: { role: AccountRole; shopSlug: string }) {
@@ -42,7 +42,7 @@ export default function BookingRoleNotice({ role, shopSlug }: { role: AccountRol
           <div className="rounded-lg border bg-muted/60 p-4">
             <div className="flex items-start gap-3">
               <UserRound className="mt-0.5 h-5 w-5 text-primary" />
-              <p className="text-sm">Cierra esta sesión e inicia con una cuenta cliente para reservar y evaluar tatuadors.</p>
+              <p className="text-sm">Cierra esta sesión e inicia con una cuenta cliente para reservar y evaluar artistas.</p>
             </div>
           </div>
           <div className="grid gap-2">

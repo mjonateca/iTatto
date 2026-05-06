@@ -14,7 +14,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
   // Verify barber belongs to this shop
   const { data: barber } = await context.supabase
     .from("barbers").select("id").eq("id", id).eq("shop_id", context.shop.id).single();
-  if (!barber) return NextResponse.json({ error: "Tatuador no encontrado" }, { status: 404 });
+  if (!barber) return NextResponse.json({ error: "Artista no encontrado" }, { status: 404 });
 
   const formData = await request.formData().catch(() => null);
   if (!formData) return NextResponse.json({ error: "Payload inválido" }, { status: 400 });

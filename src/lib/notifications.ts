@@ -63,7 +63,7 @@ export function buildReminderEmailHtml({
           <p style="margin:0 0 20px;color:#374151;font-size:15px">Hola <strong>${clientName}</strong>,</p>
           <p style="margin:0 0 20px;color:#374151;font-size:15px">Te recordamos que tienes una cita próximamente:</p>
           <table width="100%" style="background:#f9fafb;border-radius:8px;padding:16px" cellpadding="0" cellspacing="0">
-            <tr><td style="padding:6px 0"><span style="color:#6b7280;font-size:13px">Tatuador</span><br><strong style="color:#111827;font-size:15px">${barberName}</strong></td></tr>
+            <tr><td style="padding:6px 0"><span style="color:#6b7280;font-size:13px">Artista</span><br><strong style="color:#111827;font-size:15px">${barberName}</strong></td></tr>
             <tr><td style="padding:6px 0"><span style="color:#6b7280;font-size:13px">Servicio</span><br><strong style="color:#111827;font-size:15px">${serviceName}</strong></td></tr>
             <tr><td style="padding:6px 0"><span style="color:#6b7280;font-size:13px">Fecha</span><br><strong style="color:#111827;font-size:15px">${formattedDate}</strong></td></tr>
             <tr><td style="padding:6px 0"><span style="color:#6b7280;font-size:13px">Hora</span><br><strong style="color:#111827;font-size:15px">${formattedTime}</strong></td></tr>
@@ -100,7 +100,7 @@ export function buildWhatsAppReminderText({
   const formattedDate = format(new Date(`${date}T12:00:00`), "EEEE d 'de' MMMM yyyy", { locale: es });
   const formattedTime = startTime.slice(0, 5);
 
-  return `Hola ${clientName}, te recordamos tu cita en ${shopName}.\n\nServicio: ${serviceName}\nTatuador: ${barberName}\nFecha: ${formattedDate}\nHora: ${formattedTime}\n\nSi necesitas reprogramar, respóndenos por aquí.`;
+  return `Hola ${clientName}, te recordamos tu cita en ${shopName}.\n\nServicio: ${serviceName}\nArtista: ${barberName}\nFecha: ${formattedDate}\nHora: ${formattedTime}\n\nSi necesitas reprogramar, respóndenos por aquí.`;
 }
 
 export function normalizeWhatsappPhone(phone: string | null | undefined) {

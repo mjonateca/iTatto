@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     default: "iTatto — Reserva tu tatuaje",
     template: "%s | iTatto",
   },
-  description: "Reserva citas en estudios de tatuajes de cualquier país, elige servicio y horario en minutos.",
+  description: "Reserva citas en estudios de cualquier país, elige servicio y horario en minutos.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,

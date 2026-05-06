@@ -151,8 +151,8 @@ export default function RegisterPage() {
               {...register("accountType")}
             >
               <option value="client">Cliente</option>
-              <option value="barber">Tatuador</option>
-              <option value="barbershop">Estudio de tatuajes</option>
+              <option value="barber">Artista</option>
+              <option value="barbershop">Estudio</option>
             </select>
           </div>
 
@@ -173,8 +173,8 @@ export default function RegisterPage() {
                 <Input id="specialty" placeholder="Fade, barba, diseño..." {...register("specialty")} />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="shopSlug">Estudio de tatuajes donde trabajas</Label>
-                <Input id="shopSlug" placeholder="slug de la estudio de tatuajes, opcional" {...register("shopSlug")} />
+                <Label htmlFor="shopSlug">Estudio donde trabajas</Label>
+                <Input id="shopSlug" placeholder="slug de el estudio, opcional" {...register("shopSlug")} />
               </div>
             </div>
           )}
@@ -268,7 +268,7 @@ export default function RegisterPage() {
                 <textarea
                   id="description"
                   className="flex min-h-[84px] w-full rounded-xl border border-input bg-background px-4 py-3 text-sm"
-                  placeholder="Especialidad, ambiente, zona o ventajas de tu estudio de tatuajes."
+                  placeholder="Especialidad, ambiente, zona o ventajas de tu estudio."
                   {...register("description")}
                 />
               </div>
@@ -299,9 +299,9 @@ export default function RegisterPage() {
                 Creando cuenta...
               </>
             ) : accountType === "barbershop" ? (
-              "Registrar estudio de tatuajes"
+              "Registrar estudio"
             ) : accountType === "barber" ? (
-              "Crear cuenta de tatuador"
+              "Crear cuenta de artista"
             ) : (
               "Crear cuenta"
             )}

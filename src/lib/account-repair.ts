@@ -136,7 +136,7 @@ export function buildAccountSeed(input: SeedInput) {
   const lastName = pickString(existingProfile?.last_name, readString(input.metadata, "last_name"), split.lastName);
   const businessName =
     input.role === "shop_owner"
-      ? pickString(existingProfile?.business_name, readString(input.metadata, "business_name"), fullName, "Estudio de tatuajes")
+      ? pickString(existingProfile?.business_name, readString(input.metadata, "business_name"), fullName, "Estudio")
       : null;
   const phone = pickString(existingProfile?.phone, existingClient?.phone, readString(input.metadata, "phone"));
   const countryCode = (pickString(existingProfile?.country_code, existingClient?.country_code, readString(input.metadata, "country_code")) || "US").toUpperCase();

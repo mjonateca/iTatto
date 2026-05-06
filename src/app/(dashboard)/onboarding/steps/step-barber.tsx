@@ -18,8 +18,8 @@ import type { OnboardingData } from "../onboarding-wizard";
 const APP_BUSINESS_TYPE = "tattoo";
 
 const schema = z.object({
-  barberName: z.string().min(2, "Nombre requerido"),
-  barberBio: z.string().max(200, "Máximo 200 caracteres").optional(),
+  artistName: z.string().min(2, "Nombre requerido"),
+  artistBio: z.string().max(200, "Máximo 200 caracteres").optional(),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -42,8 +42,8 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
-      barberName: data.barberName || "",
-      barberBio: data.barberBio || "",
+      artistName: data.artistName || "",
+      artistBio: data.artistBio || "",
     },
   });
 
@@ -52,7 +52,7 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
 
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL?.startsWith("http")) {
       await new Promise((r) => setTimeout(r, 800));
-      toast({ title: "¡Estudio de tatuajes creado! (demo)", description: buildAppUrl("/ink-studio") + " ya está listo" });
+      toast({ title: "¡Estudio creado! (demo)", description: buildAppUrl("/ink-studio") + " ya está listo" });
       onComplete("ink-studio");
       return;
     }
@@ -154,14 +154,14 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
         if (svcError) throw svcError;
       }
 
-      // 3. Crear el perfil de tatuador del dueño
+      // 3. Crear el perfil de artista del dueño
       let { error: barberError } = await supabase
         .from("barbers")
         .insert({
           user_id: userId,
           shop_id: shop.id,
-          display_name: formData.barberName,
-          bio: formData.barberBio || null,
+          display_name: formData.artistName,
+          bio: formData.artistBio || null,
           specialty: null,
           is_active: true,
           is_independent: false,
@@ -173,8 +173,8 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
           .insert({
             user_id: userId,
             shop_id: shop.id,
-            display_name: formData.barberName,
-            bio: formData.barberBio || null,
+            display_name: formData.artistName,
+            bio: formData.artistBio || null,
             is_independent: false,
           });
         barberError = fallback.error;
@@ -183,7 +183,7 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
       if (barberError) throw barberError;
 
       toast({
-        title: "¡Estudio de tatuajes creado!",
+        title: "¡Estudio creado!",
         description: `${buildAppUrl(`/${shop.slug}`)} ya está listo`,
       });
 
@@ -192,7 +192,7 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
       const msg = error instanceof Error ? error.message : "Error desconocido";
       toast({
         variant: "destructive",
-        title: "Error al crear el estudio de tatuajes",
+        title: "Error al crear el estudio",
         description: msg,
       });
       setLoading(false);
@@ -207,7 +207,7 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
             <User className="h-5 w-5 text-primary" />
           </div>
           <div>
-            <CardTitle>Tu perfil de tatuador</CardTitle>
+            <CardTitle>Tu perfil de artista</CardTitle>
             <CardDescription>Cómo te verán tus clientes</CardDescription>
           </div>
         </div>
@@ -216,31 +216,31 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
           <div className="space-y-2">
-            <Label htmlFor="barberName">Tu nombre como tatuador *</Label>
+            <Label htmlFor="artistName">Tu nombre como artista *</Label>
             <Input
-              id="barberName"
+              id="artistName"
               placeholder="Ej: Laura Ink"
-              {...register("barberName")}
+              {...register("artistName")}
             />
-            {errors.barberName && (
-              <p className="text-xs text-destructive">{errors.barberName.message}</p>
+            {errors.artistName && (
+              <p className="text-xs text-destructive">{errors.artistName.message}</p>
             )}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="barberBio">
+            <Label htmlFor="artistBio">
               Bio corta{" "}
               <span className="text-muted-foreground font-normal">(opcional)</span>
             </Label>
             <textarea
-              id="barberBio"
+              id="artistBio"
               className="flex min-h-[80px] w-full rounded-xl border border-input bg-background px-4 py-3 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
-              placeholder="Especialista en fine line, blackwork, realismo o diseño personalizado..."
+              placeholder="Especialisto en fine line, blackwork, realismo o diseño personalizado..."
               maxLength={200}
-              {...register("barberBio")}
+              {...register("artistBio")}
             />
-            {errors.barberBio && (
-              <p className="text-xs text-destructive">{errors.barberBio.message}</p>
+            {errors.artistBio && (
+              <p className="text-xs text-destructive">{errors.artistBio.message}</p>
             )}
           </div>
 
@@ -249,7 +249,7 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
               Resumen
             </p>
             <p>
-              <span className="text-muted-foreground">Estudio de tatuajes:</span>{" "}
+              <span className="text-muted-foreground">Estudio:</span>{" "}
               <strong>{data.shopName}</strong>
             </p>
             <p>
@@ -270,7 +270,7 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
               {loading ? (
                 <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Creando...</>
               ) : (
-                "🎉 Crear estudio de tatuajes"
+                "🎉 Crear estudio"
               )}
             </Button>
           </div>
