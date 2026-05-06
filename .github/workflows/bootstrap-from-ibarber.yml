@@ -1,0 +1,136 @@
+name: Bootstrap iTatto from iBarber
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/bootstrap-from-ibarber.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout iTatto
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clone iBarber source
+        run: |
+          rm -rf /tmp/ibarber-source
+          git clone --depth 1 https://github.com/mjonateca/ibarber.git /tmp/ibarber-source
+
+      - name: Copy source files
+        run: |
+          rsync -a --delete \
+            --exclude '.git' \
+            --exclude '.github/workflows/bootstrap-from-ibarber.yml' \
+            /tmp/ibarber-source/ ./
+
+      - name: Adapt app to iTatto
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const path = require('path');
+
+          const root = process.cwd();
+          const textExts = new Set([
+            '.ts', '.tsx', '.js', '.jsx', '.json', '.md', '.css', '.html', '.mjs', '.cjs', '.yml', '.yaml', '.toml', '.sql', '.env', '.example'
+          ]);
+
+          function walk(dir) {
+            for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+              if (entry.name === '.git' || entry.name === 'node_modules' || entry.name === '.next') continue;
+              const full = path.join(dir, entry.name);
+              if (entry.isDirectory()) walk(full);
+              else {
+                const ext = path.extname(entry.name);
+                if (!textExts.has(ext) && !entry.name.includes('.env')) continue;
+                let text = fs.readFileSync(full, 'utf8');
+                const original = text;
+
+                text = text
+                  .replace(/iBarber/g, 'iTatto')
+                  .replace(/ibarber/g, 'itatto')
+                  .replace(/IBarber/g, 'ITatto')
+                  .replace(/Barbería Oñate/g, 'Estudio Oñate')
+                  .replace(/The Barber Shop iBarber/g, 'Ink Studio iTatto')
+                  .replace(/MVOG Barberia/g, 'MVOG Tattoo Studio')
+                  .replace(/Barbería Premium/g, 'Estudio Tattoo Premium')
+                  .replace(/Barberías/g, 'Estudios de tatuajes')
+                  .replace(/barberías/g, 'estudios de tatuajes')
+                  .replace(/Barbería/g, 'Estudio de tatuajes')
+                  .replace(/barbería/g, 'estudio de tatuajes')
+                  .replace(/barbero/g, 'tatuador')
+                  .replace(/barberos/g, 'tatuadores')
+                  .replace(/Barbero/g, 'Tatuador')
+                  .replace(/Barberos/g, 'Tatuadores')
+                  .replace(/corte/g, 'tatuaje')
+                  .replace(/cortes/g, 'tatuajes')
+                  .replace(/Corte/g, 'Tatuaje')
+                  .replace(/Cortes/g, 'Tatuajes')
+                  .replace(/Fade \+ barba/g, 'Diseño personalizado')
+                  .replace(/Diseño completo/g, 'Sesión completa')
+                  .replace(/Corte clásico/g, 'Tatuaje pequeño')
+                  .replace(/barber-king/g, 'ink-studio')
+                  .replace(/business_type: APP_BUSINESS_TYPE/g, 'business_type: APP_BUSINESS_TYPE')
+                  .replace(/const APP_BUSINESS_TYPE = "barber";/g, 'const APP_BUSINESS_TYPE = "tattoo";')
+                  .replace(/\.eq\("business_type", "barber"\)/g, '.eq("business_type", "tattoo")')
+                  .replace(/business_type = "barber"/g, 'business_type = "tattoo"')
+                  .replace(/business_type = barber/g, 'business_type = tattoo')
+                  .replace(/"name": "ibarber"/g, '"name": "itatto"')
+                  .replace(/"description": "Barber/g, '"description": "Tattoo')
+                  .replace(/Agenda online global/g, 'Agenda online para tatuajes')
+                  .replace(/Agenda digital/g, 'Agenda digital')
+                  .replace(/Registrar mi estudio de tatuajess/g, 'Registrar mi estudio')
+                  .replace(/estudio de tatuajess/g, 'estudios de tatuajes')
+                  .replace(/Estudio de tatuajess/g, 'Estudios de tatuajes');
+
+                if (text !== original) fs.writeFileSync(full, text);
+              }
+            }
+          }
+          walk(root);
+
+          // Hard overrides for key files where exact wording/type matters.
+          const pkgPath = path.join(root, 'package.json');
+          if (fs.existsSync(pkgPath)) {
+            const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+            pkg.name = 'itatto';
+            pkg.description = 'Tattoo studio booking app.';
+            fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
+          }
+
+          const demoPath = path.join(root, 'src/lib/demo-data.ts');
+          if (fs.existsSync(demoPath)) {
+            let text = fs.readFileSync(demoPath, 'utf8');
+            text = text
+              .replace(/name: "[^"]*"/m, 'name: "Ink Studio iTatto"')
+              .replace(/slug: "[^"]*"/m, 'slug: "ink-studio"')
+              .replace(/Clínica dental demo|Barbería demo|Salón de belleza demo/g, 'Estudio de tatuajes demo')
+              .replace(/especializada en odontología general y estética dental|especialista en cortes clásicos|especialista en tratamientos clásicos/gi, 'especialista en tatuajes minimalistas, fine line y diseño personalizado')
+              .replace(/Dra\. Laura Gómez/g, 'Laura Ink')
+              .replace(/Dr\. Miguel Torres/g, 'Miguel Needle')
+              .replace(/Limpieza dental/g, 'Tatuaje pequeño')
+              .replace(/Valoración general/g, 'Consulta de diseño')
+              .replace(/Blanqueamiento/g, 'Retoque')
+              .replace(/Consulta infantil/g, 'Sesión completa');
+            fs.writeFileSync(demoPath, text);
+          }
+          NODE
+
+      - name: Remove bootstrap workflow after copy
+        run: |
+          rm -f .github/workflows/bootstrap-from-ibarber.yml
+
+      - name: Commit bootstrapped iTatto
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Bootstrap iTatto from iBarber" || exit 0
+          git push
