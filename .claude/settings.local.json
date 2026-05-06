@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --no-turbopack --yes)",
+      "Bash(npm --version)",
+      "Read(//usr/local/bin/**)",
+      "Read(//opt/homebrew/**)",
+      "Bash(export PATH=\"/Users/mvog/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin:$PATH\")",
+      "Bash(npx --version)",
+      "Bash(brew list *)",
+      "Bash(/Users/mvog/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node -e 'console.log\\(typeof fetch\\)')",
+      "Bash(cat)",
+      "Bash(/Users/mvog/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node /tmp/bootstrap-npm.mjs)",
+      "Read(//private/tmp/npm-bootstrap/bin/**)",
+      "Bash(/Users/mvog/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node /tmp/npm-bootstrap/bin/npm-cli.js --version)",
+      "Bash('/Users/mvog/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node /tmp/npm-bootstrap/bin/npx-cli.js' create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias '@/*' --no-turbopack --yes)",
+      "Bash(/Users/mvog/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node /tmp/npm-bootstrap/bin/npx-cli.js create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias '@/*' --no-turbopack --yes)",
+      "Bash(export PATH=\"$NODE_DIR:$PATH\")",
+      "Bash(/Users/mvog/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node /tmp/npm-bootstrap/bin/npx-cli.js create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias '@/*' --no-turbopack --yes --skip-install)",
+      "Bash(echo \"Exit: $?\")",
+      "Bash(/Users/mvog/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node /tmp/npm-bootstrap/bin/npm-cli.js install --legacy-peer-deps)",
+      "Bash(/Users/mvog/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node /tmp/npm-bootstrap/bin/npm-cli.js run build)",
+      "mcp__Claude_Preview__preview_start"
+    ]
+  }
+}

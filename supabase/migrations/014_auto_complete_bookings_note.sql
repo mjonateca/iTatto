@@ -1,0 +1,3 @@
+-- Auto-complete bookings is handled via Vercel Cron (/api/cron/complete-bookings)
+-- running every 30 minutes. Requires CRON_SECRET env var in Vercel.
+-- No DB changes needed for this feature.
