@@ -77,7 +77,6 @@ jobs:
                   .replace(/Diseño completo/g, 'Sesión completa')
                   .replace(/Corte clásico/g, 'Tatuaje pequeño')
                   .replace(/barber-king/g, 'ink-studio')
-                  .replace(/business_type: APP_BUSINESS_TYPE/g, 'business_type: APP_BUSINESS_TYPE')
                   .replace(/const APP_BUSINESS_TYPE = "barber";/g, 'const APP_BUSINESS_TYPE = "tattoo";')
                   .replace(/\.eq\("business_type", "barber"\)/g, '.eq("business_type", "tattoo")')
                   .replace(/business_type = "barber"/g, 'business_type = "tattoo"')
@@ -85,7 +84,6 @@ jobs:
                   .replace(/"name": "ibarber"/g, '"name": "itatto"')
                   .replace(/"description": "Barber/g, '"description": "Tattoo')
                   .replace(/Agenda online global/g, 'Agenda online para tatuajes')
-                  .replace(/Agenda digital/g, 'Agenda digital')
                   .replace(/Registrar mi estudio de tatuajess/g, 'Registrar mi estudio')
                   .replace(/estudio de tatuajess/g, 'estudios de tatuajes')
                   .replace(/Estudio de tatuajess/g, 'Estudios de tatuajes');
@@ -96,7 +94,6 @@ jobs:
           }
           walk(root);
 
-          // Hard overrides for key files where exact wording/type matters.
           const pkgPath = path.join(root, 'package.json');
           if (fs.existsSync(pkgPath)) {
             const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
