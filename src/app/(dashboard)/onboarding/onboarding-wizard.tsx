@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Scissors, CheckCircle2 } from "lucide-react";
+import { PenTool, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import StepShopInfo from "./steps/step-shop-info";
 import StepServices from "./steps/step-services";
@@ -22,14 +22,14 @@ export interface OnboardingData {
   // Paso 2
   services: Array<{ name: string; duration_min: number; price: number }>;
   // Paso 3 — artista principal (el dueño)
-  barberName: string;
-  barberBio: string;
+  artistName: string;
+  artistBio: string;
 }
 
 const STEPS = [
   { label: "Tu estudio", description: "Información básica" },
-  { label: "Servicios",   description: "Qué ofreces" },
-  { label: "Tu perfil",  description: "Perfil de artista" },
+  { label: "Servicios", description: "Qué ofreces" },
+  { label: "Tu perfil", description: "Perfil de artista" },
 ];
 
 export default function OnboardingWizard({ userId }: { userId: string }) {
@@ -37,9 +37,9 @@ export default function OnboardingWizard({ userId }: { userId: string }) {
   const [step, setStep] = useState(0);
   const [data, setData] = useState<Partial<OnboardingData>>({
     services: [
-      { name: "Tatuaje de cabello", duration_min: 30, price: 350 },
-      { name: "Tatuaje + barba",    duration_min: 45, price: 550 },
-      { name: "Barba",            duration_min: 20, price: 300 },
+      { name: "Tatuaje pequeño", duration_min: 30, price: 350 },
+      { name: "Diseño personalizado", duration_min: 45, price: 550 },
+      { name: "Sesión completa", duration_min: 60, price: 750 },
     ],
   });
 
@@ -61,11 +61,10 @@ export default function OnboardingWizard({ userId }: { userId: string }) {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
       <header className="border-b px-4 py-4">
         <div className="max-w-lg mx-auto flex items-center gap-3">
           <div className="bg-primary rounded-xl p-2">
-            <Scissors className="h-5 w-5 text-white" />
+            <PenTool className="h-5 w-5 text-white" />
           </div>
           <div>
             <p className="font-semibold text-sm">iTatto</p>
@@ -75,7 +74,6 @@ export default function OnboardingWizard({ userId }: { userId: string }) {
       </header>
 
       <div className="max-w-lg mx-auto px-4 py-8">
-        {/* Stepper */}
         <div className="flex items-center justify-between mb-10">
           {STEPS.map((s, i) => (
             <div key={i} className="flex items-center flex-1">
@@ -90,11 +88,7 @@ export default function OnboardingWizard({ userId }: { userId: string }) {
                       : "bg-muted text-muted-foreground"
                   )}
                 >
-                  {i < step ? (
-                    <CheckCircle2 className="h-5 w-5" />
-                  ) : (
-                    i + 1
-                  )}
+                  {i < step ? <CheckCircle2 className="h-5 w-5" /> : i + 1}
                 </div>
                 <div className="mt-1 text-center hidden sm:block">
                   <p className={cn("text-xs font-medium", i === step ? "text-foreground" : "text-muted-foreground")}>
@@ -114,22 +108,11 @@ export default function OnboardingWizard({ userId }: { userId: string }) {
           ))}
         </div>
 
-        {/* Step content */}
         {step === 0 && (
-          <StepShopInfo
-            data={data}
-            onUpdate={updateData}
-            onNext={goNext}
-            userId={userId}
-          />
+          <StepShopInfo data={data} onUpdate={updateData} onNext={goNext} userId={userId} />
         )}
         {step === 1 && (
-          <StepServices
-            data={data}
-            onUpdate={updateData}
-            onNext={goNext}
-            onBack={goBack}
-          />
+          <StepServices data={data} onUpdate={updateData} onNext={goNext} onBack={goBack} />
         )}
         {step === 2 && (
           <StepBarber
