@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Calendar, Clock, LayoutDashboard, LogOut, Mail, Scissors, Settings, UserRound, Users } from "lucide-react";
+import { Calendar, Clock, LayoutDashboard, LogOut, Mail, PenTool, Settings, UserRound, Users } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 import type { AccountRole } from "@/types/database";
@@ -16,7 +16,7 @@ type NavItem = {
 const shopNavItems: NavItem[] = [
   { tab: "summary", label: "Resumen", icon: LayoutDashboard },
   { tab: "bookings", label: "Reservas", icon: Calendar },
-  { tab: "services", label: "Servicios", icon: Scissors },
+  { tab: "services", label: "Servicios", icon: PenTool },
   { tab: "barbers", label: "Artistas", icon: UserRound },
   { tab: "clients", label: "Clientes", icon: Users },
   { tab: "schedule", label: "Horarios", icon: Clock },
@@ -31,7 +31,7 @@ const clientNavItems: NavItem[] = [
   { tab: "profile", label: "Perfil", icon: UserRound },
 ];
 
-const barberNavItems: NavItem[] = [
+const artistNavItems: NavItem[] = [
   { tab: "summary", label: "Hoy", icon: LayoutDashboard },
   { tab: "bookings", label: "Turnos", icon: Calendar },
   { tab: "clients", label: "Clientes", icon: Users },
@@ -46,7 +46,7 @@ export default function DashboardNav({ role = "shop_owner" }: { role?: AccountRo
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
-  const navItems = role === "client" ? clientNavItems : role === "barber" ? barberNavItems : shopNavItems;
+  const navItems = role === "client" ? clientNavItems : role === "barber" ? artistNavItems : shopNavItems;
   const activeTab = searchParams.get("tab") || "summary";
 
   async function handleLogout() {
@@ -62,7 +62,7 @@ export default function DashboardNav({ role = "shop_owner" }: { role?: AccountRo
         <div className="border-b p-6">
           <Link href={tabHref("summary")} className="flex items-center gap-2">
             <div className="rounded-xl bg-primary p-2">
-              <Scissors className="h-5 w-5 text-white" />
+              <PenTool className="h-5 w-5 text-white" />
             </div>
             <span className="text-lg font-bold">iTatto</span>
           </Link>
