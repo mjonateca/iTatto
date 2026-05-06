@@ -50,10 +50,9 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
   async function onSubmit(formData: FormData) {
     setLoading(true);
 
-    // Modo demo: simular guardado y redirigir
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL?.startsWith("http")) {
       await new Promise((r) => setTimeout(r, 800));
-      toast({ title: "¡Estudio de tatuajes creada! (demo)", description: buildAppUrl("/ink-studio") + " ya está lista" });
+      toast({ title: "¡Estudio de tatuajes creado! (demo)", description: buildAppUrl("/ink-studio") + " ya está listo" });
       onComplete("ink-studio");
       return;
     }
@@ -101,6 +100,7 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
             owner_id: userId,
             name: data.shopName!,
             slug: data.slug!,
+            business_type: APP_BUSINESS_TYPE,
             phone: data.phone || null,
             address: data.address || null,
             opening_hours: {
@@ -183,8 +183,8 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
       if (barberError) throw barberError;
 
       toast({
-        title: "¡Estudio de tatuajes creada!",
-        description: `${buildAppUrl(`/${shop.slug}`)} ya está lista`,
+        title: "¡Estudio de tatuajes creado!",
+        description: `${buildAppUrl(`/${shop.slug}`)} ya está listo`,
       });
 
       onComplete(shop.slug);
@@ -192,7 +192,7 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
       const msg = error instanceof Error ? error.message : "Error desconocido";
       toast({
         variant: "destructive",
-        title: "Error al crear la estudio de tatuajes",
+        title: "Error al crear el estudio de tatuajes",
         description: msg,
       });
       setLoading(false);
@@ -219,7 +219,7 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
             <Label htmlFor="barberName">Tu nombre como tatuador *</Label>
             <Input
               id="barberName"
-              placeholder="Ej: Juan el Maestro"
+              placeholder="Ej: Laura Ink"
               {...register("barberName")}
             />
             {errors.barberName && (
@@ -235,7 +235,7 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
             <textarea
               id="barberBio"
               className="flex min-h-[80px] w-full rounded-xl border border-input bg-background px-4 py-3 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
-              placeholder="10 años de experiencia, especialista en tatuajes clásicos..."
+              placeholder="Especialista en fine line, blackwork, realismo o diseño personalizado..."
               maxLength={200}
               {...register("barberBio")}
             />
@@ -244,7 +244,6 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
             )}
           </div>
 
-          {/* Resumen antes de crear */}
           <div className="rounded-xl bg-muted/40 p-4 space-y-2 text-sm">
             <p className="font-medium text-muted-foreground text-xs uppercase tracking-wide">
               Resumen
