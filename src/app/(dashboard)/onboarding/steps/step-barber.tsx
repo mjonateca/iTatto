@@ -64,7 +64,6 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
     const targetCity = data.city || getCitiesForCountry(targetCountryCode)[0] || "New York";
 
     try {
-      // 1. Crear el shop
       let { data: shop, error: shopError } = await supabase
         .from("shops")
         .insert({
@@ -121,7 +120,6 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
 
       if (shopError) throw shopError;
 
-      // 2. Crear los servicios
       if (data.services && data.services.length > 0) {
         let { error: svcError } = await supabase
           .from("services")
@@ -154,7 +152,6 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
         if (svcError) throw svcError;
       }
 
-      // 3. Crear el perfil de artista del dueño
       let { error: barberError } = await supabase
         .from("barbers")
         .insert({
@@ -235,7 +232,7 @@ export default function StepBarber({ data, onBack, onComplete, userId }: Props) 
             <textarea
               id="artistBio"
               className="flex min-h-[80px] w-full rounded-xl border border-input bg-background px-4 py-3 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
-              placeholder="Especialisto en fine line, blackwork, realismo o diseño personalizado..."
+              placeholder="Especialista en fine line, blackwork, realismo o diseño personalizado..."
               maxLength={200}
               {...register("artistBio")}
             />
