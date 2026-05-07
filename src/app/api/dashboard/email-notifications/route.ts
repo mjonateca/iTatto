@@ -29,6 +29,7 @@ const sendSchema = z.object({
 });
 
 const REMINDER_SUBJECT = "Recordatorio de cita";
+
 export async function POST(request: Request) {
   const context = await requireOwnedActiveShop();
   if (context.response) return context.response;
@@ -60,6 +61,7 @@ export async function POST(request: Request) {
     .single();
 
   if (!booking) return NextResponse.json({ error: "Reserva no encontrada" }, { status: 404 });
+
   const { data: shopData } = await admin
     .from("shops")
     .select("name, slug")
@@ -88,7 +90,7 @@ export async function POST(request: Request) {
   }
 
   if (!normalizeReminderChannels((context.shop as { reminder_channels?: unknown }).reminder_channels).includes("email")) {
-    return NextResponse.json({ error: "El correo no está activado para esta estudio" }, { status: 400 });
+    return NextResponse.json({ error: "El correo no está activado para este estudio" }, { status: 400 });
   }
 
   if (!process.env.RESEND_API_KEY) {
@@ -113,7 +115,7 @@ export async function POST(request: Request) {
     });
 
     const result = await resend.emails.send({
-      from: `${shopName} <${process.env.RESEND_FROM_EMAIL || "no-reply@i-barber.com"}>`,
+      from: `${shopName} <${process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev"}>`,
       to: recipientEmail,
       subject: REMINDER_SUBJECT,
       html,
